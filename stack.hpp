@@ -17,6 +17,7 @@ public:
 	bool is_empty() const;
 	void push(type data);
 	type pop();
+	size_t size();
 
 ///Operators:
 	Stack & operator=(Stack const & other);
@@ -81,11 +82,17 @@ void Stack<type>::stresize()
 }
 
 template <typename type>
-Stack<type> & Stack<type>::operator = (Stack const & other)
+Stack<type> & Stack<type>::operator = (Stack<type> const & other)
 {
 	size_ = other.size_;
 	counter_ = other.counter_;
 	delete [] data_, data_ = new type[size_];
 	memcpy<type>(data_, other.data_, counter_);
 	return *this;
+}
+
+template <typename type>
+size_t Stack<type>::size()
+{
+	return counter_;
 }
