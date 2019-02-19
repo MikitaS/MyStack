@@ -17,7 +17,7 @@ public:
 	bool is_empty() const;
 	void push(type data);
 	type pop();
-	size_t size();
+	size_t size() const;
 
 ///Operators:
 	Stack & operator=(Stack const & other);
@@ -92,7 +92,7 @@ Stack<type> & Stack<type>::operator = (Stack<type> const & other)
 }
 
 template <typename type>
-size_t Stack<type>::size()
+size_t Stack<type>::size() const
 {
 	return counter_;
 }
