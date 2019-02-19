@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include "memory.hpp"
 
 static const size_t START_STACK_SIZE_ = 50;
@@ -76,7 +76,7 @@ type Stack<type>::pop()
 template <typename type>
 void Stack<type>::stresize()
 {
-	data_ = resize<type>(data_, size_, size_ * 2);
+	data_ = resize<type>(data_, counter_, size_ * 2);
 	size_ *= 2;
 }
 
