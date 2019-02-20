@@ -2,7 +2,7 @@
 #include <iostream>
 #include "memory.hpp"
 
-static const size_t START_STACK_SIZE_ = 50;
+
 
 template <typename type>
 class Stack
@@ -18,18 +18,24 @@ public:
 	void push(type data);
 	type pop();
 	size_t size() const;
+	type & top();
 
 ///Operators:
-	Stack & operator=(Stack const & other);
+	Stack & operator = (Stack const & other);
+	bool operator == (Stack const & other) const;
+	bool operator != (Stack const & other) const;
 	
 private:
 	void stresize();
+	static const size_t START_STACK_SIZE_ = 50;
 	
 	type * data_;
 	size_t size_;
 	size_t counter_;
 	
 };
+
+///Constructors and destructor:
 
 template <typename type>
 Stack<type>::Stack() : 
@@ -51,6 +57,8 @@ Stack<type>::~Stack()
 {
 	delete [] this->data_;
 }
+
+///Methods:
 
 template <typename type>
 bool Stack<type>::is_empty() const
@@ -82,6 +90,21 @@ void Stack<type>::stresize()
 }
 
 template <typename type>
+size_t Stack<type>::size() const
+{
+	return counter_;
+}
+
+
+template <typename type>
+type & Stack<type>::top()
+{
+	return this->data_[this->counter_ - 1];
+}
+
+///operator's redefenitions:
+
+template <typename type>
 Stack<type> & Stack<type>::operator = (Stack<type> const & other)
 {
 	size_ = other.size_;
@@ -92,7 +115,22 @@ Stack<type> & Stack<type>::operator = (Stack<type> const & other)
 }
 
 template <typename type>
-size_t Stack<type>::size() const
+bool Stack<type>::operator == (Stack<type> const & other) const
 {
-	return counter_;
+	if(this->counter_ != other.counter_)
+		return 0;
+		
+	for(size_t i = 0; i < this->counter_; ++i)
+	{
+		if(this->data_[i] != other.data_[i])
+			return 0;
+	}
+	
+	return 1;
+}
+
+template <typename type>
+bool Stack<type>::operator != (Stack<type> const & other) const
+{
+	return !(*this == other);
 }
